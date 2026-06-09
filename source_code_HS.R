@@ -4,9 +4,6 @@
 #   1. All functions
 #   2. Data generation
 #   3. Estimation using different methods
-#
-# Note: This keeps your original mathematical code mostly unchanged. The main
-# ordering fix is that X is scaled directly after simulation, before mydata exists.
 # ===============================================================================
 
 # ==============================================================================
@@ -49,8 +46,6 @@ simulate_survival_data <- function(n, p, s, beta.true, gamma, plot_km = TRUE) {
   mychol <- chol(Sigma)
   X <- t(t(mychol) %*% matrix(rnorm(n * p), nrow = p))
 
-  ## IMPORTANT: scale X directly. 
- # X <- apply(X, 2, scale_to_minus1_1)
 
   Z <- cbind(runif(n, -1, 1), rbinom(n, 1, 0.5))
   eta <- X %*% beta.true + Z %*% gamma
@@ -90,7 +85,7 @@ simulate_survival_data <- function(n, p, s, beta.true, gamma, plot_km = TRUE) {
   )
 }
 
-lasso_initialization <- function(mydata, p, max_selected_fraction = 0.05) {
+lasso_initialization <- function(mydata, p, max_selected_fraction = 0.1) {
   if ("Z" %in% names(mydata)) {
     Xfull <- cbind(mydata$X, mydata$Z)
 
@@ -158,7 +153,7 @@ lasso_initialization <- function(mydata, p, max_selected_fraction = 0.05) {
   )
 }
 
-prepare_global_objects <- function(mydata, npart = 10, varz_value = 1.10) {
+prepare_global_objects <- function(mydata, npart = 10, varz_value = 2) {
   ## This function assigns the global objects used by the original estimation
   ## functions below.
 
