@@ -36,7 +36,7 @@ mean_delta <- sim.out$censoring_indicator_mean
 #print(mean_delta)
 
 # ==============================================================================
-# 4. Estimation using different methods
+#  Estimation using different methods
 # ===============================================================================
 
 # ------------------------------------------------------------------------------
@@ -68,7 +68,7 @@ mypsi <- proposed.out$mypsi
 initial.para <- proposed.out$initial.para
 
 # ==============================================================================
-# 5. Basic diagnostic plots
+# Basic diagnostic plots
 # ===============================================================================
 
 plot(mytheta$allpara[1:mpq], main = "Proposed estimates", ylab = "Estimate")
@@ -76,12 +76,18 @@ plot(beta.est, main = "LASSO initial estimates", ylab = "Estimate")
 plot(beta.true, main = "True values of the regression coefficients", ylab = "Estimate")
 store.our[numrep]=sqrt(mean((mytheta$allpara[1:p]-beta.true)^2))
 store.lasso[numrep]=sqrt(mean((beta.est[1:p]-beta.true)^2))
+
+# ==========================================================
+# Estimation accuracy 
+# ==========================================================
+
 cat('RMSE for HS= ', sqrt(mean((mytheta$allpara[1:p]-beta.true)^2)), "\n")
 cat('RMSE for LASSO= ', sqrt(mean((beta.est[1:p]-beta.true)^2)), "\n")
 
 
-##########
-##########
+#==========================================================
+# Feature selection metrics
+#==========================================================
 lasso.selection=feature_selection(which(beta.est!=0), beta.true)
 cat("Feature selection metrics using LASSO:",
     "FDR =", lasso.selection$FDR,
@@ -117,4 +123,3 @@ cat("Feature selection metrics using HS2:",
 
 
 
-#}
