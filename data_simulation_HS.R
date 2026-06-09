@@ -40,7 +40,7 @@ mean_delta <- sim.out$censoring_indicator_mean
 # ===============================================================================
 
 # ------------------------------------------------------------------------------
-# Method 1: Cox LASSO initialization
+# Method 1: Cox LASSO 
 # ------------------------------------------------------------------------------
 
 lasso.out <- lasso_initialization(mydata = mydata, p = p)
